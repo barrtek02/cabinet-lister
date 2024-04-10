@@ -222,6 +222,7 @@ class FurnitureApp:
 root = tk.Tk()
 
 root.title("Formatki")
-root.iconbitmap("icon.ico")
+if os.path.exists("icon.ico"):
+    root.iconbitmap("icon.ico")
 app = FurnitureApp(root)
 root.mainloop()
