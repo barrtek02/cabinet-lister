@@ -27,7 +27,8 @@ class FurnitureApp:
                 x.columns.intersection(
                     ["partName", "height", "width", "pieces", "wrapping", "comments"]
                 )
-            ].to_dict("records")
+            ].to_dict("records"),
+            include_groups=False,
         )
         cabinets = grouped.to_dict()
         return cabinets
