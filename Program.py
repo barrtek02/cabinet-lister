@@ -2,6 +2,7 @@ import datetime
 import os
 import tkinter as tk
 from tkinter import ttk
+import copy
 
 import docx
 import pandas as pd
@@ -173,7 +174,7 @@ class FurnitureApp:
         parts_list = []
         # add the contents of the cart to the document
         for cabinet, count in self.cart.items():
-            partsTemp = cabinets[cabinet]
+            partsTemp = copy.deepcopy(cabinets[cabinet])
             for partTemp in partsTemp:
                 partTemp["pieces"] *= count
                 parts_list.append(partTemp)
