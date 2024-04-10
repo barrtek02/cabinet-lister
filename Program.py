@@ -21,6 +21,9 @@ class FurnitureApp:
 
     def load_cabinets(self, filename):
         df = pd.read_excel(filename)
+        df = df.fillna(0)
+        df.to_excel(filename, index=False)
+
         # group the DataFrame by the big table key column and convert each group to a dictionary
         grouped = df.groupby("Nazwa").apply(
             lambda x: x[
@@ -200,7 +203,7 @@ class FurnitureApp:
         parts_list_sorted.sort(key=lambda x: x["partName"])
 
         def zero_to_str(wrapping):
-            if wrapping == 0:
+            if wrapping == 0 or wrapping is None:
                 wrapping = ""
             return wrapping
 
