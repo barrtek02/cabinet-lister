@@ -1,6 +1,8 @@
 import datetime
 import os
 import tkinter as tk
+from tkinter import messagebox
+
 from tkinter import ttk
 import copy
 
@@ -20,10 +22,15 @@ class FurnitureApp:
         self.entry_kolor = None
         self.create_widgets()
 
-    def load_cabinets(self, filename):
-        df = pd.read_excel(filename)
-        df = df.fillna(0)
-        df.to_excel(filename, index=False)
+    @staticmethod
+    def load_cabinets(filename):
+        if os.path.exists(filename):
+            df = pd.read_excel(filename)
+            df = df.fillna(0)
+            df.to_excel(filename, index=False)
+        else:
+            messagebox.showwarning("Uwaga!", f"Nie znaleziono pliku {filename}")
+            return
 
         # group the DataFrame by the big table key column and convert each group to a dictionary
         grouped = df.groupby("Nazwa").apply(
