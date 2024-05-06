@@ -1,5 +1,6 @@
 import datetime
 import os
+import sys
 import tkinter as tk
 from tkinter import messagebox
 
@@ -16,6 +17,8 @@ class FurnitureApp:
         self.master = master
         self.lower_cabinets = self.load_cabinets("Szafki dolne.xlsx")
         self.upper_cabinets = self.load_cabinets("Szafki górne.xlsx")
+        if self.lower_cabinets is None or self.upper_cabinets is None:
+            sys.exit("Nie udało się załadować szafek.")
         self.cabinets = {**self.lower_cabinets, **self.upper_cabinets}
         self.cart = {}
         self.entry = None
@@ -30,7 +33,7 @@ class FurnitureApp:
             df.to_excel(filename, index=False)
         else:
             messagebox.showwarning("Uwaga!", f"Nie znaleziono pliku {filename}")
-            return
+            return None
 
         # group the DataFrame by the big table key column and convert each group to a dictionary
         grouped = df.groupby("Nazwa").apply(
