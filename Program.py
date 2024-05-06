@@ -6,6 +6,7 @@ import copy
 
 import docx
 import pandas as pd
+import re
 
 
 class FurnitureApp:
@@ -211,8 +212,11 @@ class FurnitureApp:
             doc.add_paragraph(
                 f"{part['partName']}          {part['height']} X {part['width']}            {part['pieces']}szt       {zero_to_str(part['wrapping'])}        {zero_to_str(part['comments'])}"
             )
-        # save the document to a file
+
+        # Remove special characters from user_entry
+        user_entry = re.sub(r"\W+", "", user_entry)
         filename = user_entry + ".docx"
+        # save the document to a file
         doc.save(filename)
 
         # open the saved file
@@ -226,3 +230,8 @@ if os.path.exists("icon.ico"):
     root.iconbitmap("icon.ico")
 app = FurnitureApp(root)
 root.mainloop()
+
+# Name of program rozpiski
+# ikonka
+# jesli word o takiej samej nazwie jest otwarty to zamkya
+# moze jakies powiadomienia jakich plikow brakuje
