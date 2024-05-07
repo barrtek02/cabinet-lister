@@ -29,8 +29,11 @@ class FurnitureApp:
     def load_cabinets(filename):
         if os.path.exists(filename):
             df = pd.read_excel(filename)
-            df = df.fillna(0)
-            df.to_excel(filename, index=False)
+            try:
+                df = df.fillna(0)
+                df.to_excel(filename, index=False)
+            except PermissionError:
+                pass
         else:
             messagebox.showwarning("Uwaga!", f"Nie znaleziono pliku {filename}")
             return None
